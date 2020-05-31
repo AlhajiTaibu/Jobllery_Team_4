@@ -43,11 +43,7 @@ function register_user($username,$email,$password,$user_role){
         $register_user=mysqli_query($connection,$query);
         
         confirmQuery($register_user);
-        
-//         $last_id=mysqli_insert_id($connection);
-//        $url='http://'.$_SERVER['SERVER_NAME'].'/send-mail-phpmailer/verify.php?id='.$last_id.'&token='.$token;
-//         $output='<div>Thanks for registering with Jobllery. Please click this link to complete this registration<br><br>'.$url.'</div>';  
-//        
+       
         if( $register_user==true){
         date_default_timezone_set('Etc/UTC');
 
@@ -325,4 +321,46 @@ function confirmPassword($new_password,$repeat_password,$user_id){
         }
         }
 }
+
+
+function updateProfile($firstname,$lastname,$address,$contact_number,$experience,$dob,$job_title,$gender,$qualification, $description, $link, $tags,$profile_image){
+    global $connection;
+    
+    if(!empty($firstname)&&!empty($lastname)&&!empty($address)&&!empty($gender)){
+        
+        $firstname=mysqli_real_escape_string($connection,$firstname);
+        $lastname=mysqli_real_escape_string($connection,$lastname);
+        $address=mysqli_real_escape_string($connection,$address);
+        $contact_number=mysqli_real_escape_string($connection,$contact_number);
+        $experience=mysqli_real_escape_string($connection,$experience);
+        $dob=mysqli_real_escape_string($connection,$dob);
+        $job_title=mysqli_real_escape_string($connection,$job_title);
+        $gender=mysqli_real_escape_string($connection,$gender);
+        $qualification=mysqli_real_escape_string($connection,$qualification);
+        $description=mysqli_real_escape_string($connection,$description);
+        $link=mysqli_real_escape_string($connection,$link);
+        $tags=mysqli_real_escape_string($connection,$tags);
+        $profile_image=mysqli_real_escape_string($connection,$profile_image);
+        
+        
+        $query="INSERT INTO profile(first_name,last_name,address,dob,image,contact_number,experience,gender,qualification,description,url,tags) VALUES('$firstname','$lastname','$address','$dob','$profile_image','$contact_number','$experience','$gender','$qualification','$description','$link','$tags')";
+        $update_profile=mysqli_query($connection,$query);
+        
+        confirmQuery($update_profile);
+        
+       echo $message="<h6 class='alert alert-success'>Profile updated successfully. Click here to view your profile<a href='#? '>   View Profile</a></h6>";
+    
+}
+
+
+}
+
+
+
+
+
+
+
+
+
 ?>
